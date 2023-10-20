@@ -25,7 +25,7 @@ jobs:
 
       - name: Unlock encrypted files
         run: |
-          export SECRET_PASS="${{ secrets.SECRET_KEY }}"
+          export SECRET_PASS="${{ secrets.SECRET_PASS }}"
           make unlock
       
       - name: Terraform Plan
