@@ -34,7 +34,7 @@ jobs:
 
       - name: Terraform Plan
         run: |
-          tofu plan -out /tmp/plan-${{ github.sha }}
+          tofu plan -out plan-${{ github.sha }}
       
       - name: Upload plan
         uses: actions/upload-artifact@v3
