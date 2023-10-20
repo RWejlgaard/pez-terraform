@@ -1,0 +1,69 @@
+name: Apply Terraform
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  opentofu_version: "1.6.0-alpha3"
+
+jobs:
+  plan:
+    name: Plan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download OpenTofu
+        run: |
+          curl -LO https://github.com/opentofu/opentofu/releases/download/v${{ env.opentofu_version }}/tofu_${{ env.opentofu_version }}_linux_amd64.zip
+          unzip tofu_${{ env.opentofu_version }}_linux_amd64.zip
+          sudo mv tofu /usr/local/bin/tofu
+
+      - name: Unlock encrypted files
+        run: |
+          export SECRET_PASS="${{ secrets.SECRET_KEY }}"
+          make unlock
+      
+      - name: Terraform Plan
+        run: |
+          tofu plan -out /tmp/plan-${{ github.sha }}
+      
+      - name: Upload plan
+        uses: actions/upload-artifact@v3
+        with:
+          name: plan
+          path: "plan-${{ github.sha }}"
+
+  apply:
+    name: Apply
+    runs-on: ubuntu-latest
+    needs: plan
+    environment: prod
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download OpenTofu
+        run: |
+          curl -LO https://github.com/opentofu/opentofu/releases/download/v${{ env.opentofu_version }}/tofu_${{ env.opentofu_version }}_linux_amd64.zip
+          unzip tofu_${{ env.opentofu_version }}_linux_amd64.zip
+          sudo mv tofu /usr/local/bin/tofu
+
+      - name: Download plan
+        uses: actions/download-artifact@v3
+        with:
+          name: plan
+
+      - name: Unlock encrypted files
+        run: |
+          export SECRET_PASS="${{ secrets.SECRET_KEY }}"
+          make unlock
+          
+      - name: Apply
+        run: |
+          tofu apply plan-${{ github.sha }}
