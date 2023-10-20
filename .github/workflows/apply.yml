@@ -30,7 +30,7 @@ jobs:
       
       - name: Terraform init
         run: |
-          tofu init --backend-config secrets/backend.yml
+          tofu init --backend-config secrets/backend.hcl
 
       - name: Terraform Plan
         run: |
@@ -70,7 +70,7 @@ jobs:
       
       - name: Terraform init
         run: |
-          tofu init --backend-config secrets/backend.yml
+          tofu init --backend-config secrets/backend.hcl
           
       - name: Apply
         run: |
