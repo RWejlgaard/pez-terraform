@@ -28,6 +28,10 @@ jobs:
           export SECRET_PASS="${{ secrets.SECRET_PASS }}"
           make unlock
       
+      - name: Terraform init
+        run: |
+          tofu init --backend-config secret/backend.yml
+
       - name: Terraform Plan
         run: |
           tofu plan -out /tmp/plan-${{ github.sha }}
@@ -63,6 +67,10 @@ jobs:
         run: |
           export SECRET_PASS="${{ secrets.SECRET_PASS }}"
           make unlock
+      
+      - name: Terraform init
+        run: |
+          tofu init --backend-config secret/backend.yml
           
       - name: Apply
         run: |
