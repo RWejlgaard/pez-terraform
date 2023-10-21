@@ -3,6 +3,11 @@ resource "cloudflare_access_identity_provider" "azure_ad" {
   account_id = cloudflare_account.this.id
   name = "Azure AD"
   type = "azureAD"
+  config {
+    client_id = azuread_application.cloudflare_access.application_id
+    client_secret = azuread_application_password.cloudflare_access.value
+    directory_id = data.azuread_client_config.current.tenant_id
+  }
 }
 
 resource "cloudflare_access_application" "alertmanager" {

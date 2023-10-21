@@ -63,6 +63,10 @@ jobs:
         with:
           name: plan
 
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Unlock encrypted files
         run: |
           export SECRET_PASS="${{ secrets.SECRET_PASS }}"
