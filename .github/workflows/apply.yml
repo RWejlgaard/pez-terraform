@@ -31,8 +31,8 @@ jobs:
       - name: Download OpenTofu
         run: |
           curl -LO https://github.com/opentofu/opentofu/releases/download/v${{ env.opentofu_version }}/tofu_${{ env.opentofu_version }}_linux_amd64.zip
-          unzip tofu_${{ env.opentofu_version }}_linux_amd64.zip
-          sudo mv tofu /usr/local/bin/tofu
+          unzip tofu_${{ env.opentofu_version }}_linux_amd64.zip -d tofu
+          sudo mv tofu/tofu /usr/local/bin/tofu
 
       - name: Unlock encrypted files
         run: |
@@ -70,8 +70,8 @@ jobs:
       - name: Download OpenTofu
         run: |
           curl -LO https://github.com/opentofu/opentofu/releases/download/v${{ env.opentofu_version }}/tofu_${{ env.opentofu_version }}_linux_amd64.zip
-          unzip tofu_${{ env.opentofu_version }}_linux_amd64.zip
-          sudo mv tofu /usr/local/bin/tofu
+          unzip tofu_${{ env.opentofu_version }}_linux_amd64.zip -d tofu
+          sudo mv tofu/tofu /usr/local/bin/tofu
 
       - name: Download plan
         uses: actions/download-artifact@v3
