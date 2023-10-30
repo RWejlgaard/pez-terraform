@@ -210,6 +210,6 @@ resource "cloudflare_record" "txt-keybase-verification" {
   zone_id = cloudflare_zone.pez-sh.id
   name    = "pez.sh"
   type    = "TXT"
-  value   = "keybase-site-verification=w-WPdr0goQDQdGc_wgTh6ca50zKQnZ1agh9kOzw_sNo"
+  value   = "keybase-site-verification=ur7GwlgtEEPgIZ-2P0fyFsniuu6YwdkluO7N6LkymK0"
   proxied = false
 }
