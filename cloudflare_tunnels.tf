@@ -41,7 +41,6 @@ resource "cloudflare_tunnel_config" "london-a" {
           required = true
           team_name = "pezsh"
         }
-        http_host_header = "localhost:3000"
       }
     }
     ingress_rule {
