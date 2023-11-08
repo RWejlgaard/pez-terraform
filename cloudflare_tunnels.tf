@@ -82,6 +82,10 @@ resource "cloudflare_tunnel_config" "london-a" {
       service = "http://localhost:8124"
     }
     ingress_rule {
+      hostname = "minecraft.pez.sh"
+      service = "tcp://localhost:25565"
+    }
+    ingress_rule {
       service = "http_status:404"
     }
   }

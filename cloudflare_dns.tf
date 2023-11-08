@@ -91,6 +91,14 @@ resource "cloudflare_record" "minecraft-map" {
   proxied = true
 }
 
+resource "cloudflare_record" "minecraft" {
+  zone_id = cloudflare_zone.pez-sh.id
+  name    = "minecraft"
+  type    = "CNAME"
+  value   = "${cloudflare_tunnel.london-a.id}.cfargotunnel.com"
+  proxied = true
+}
+
 resource "cloudflare_record" "prowlarr" {
   zone_id = cloudflare_zone.pez-sh.id
   name    = "prowlarr"
