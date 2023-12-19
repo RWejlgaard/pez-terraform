@@ -147,6 +147,14 @@ resource "cloudflare_record" "sonarr" {
   proxied = true
 }
 
+resource "cloudflare_record" "lidarr" {
+  zone_id = cloudflare_zone.pez-sh.id
+  name    = "lidarr"
+  type    = "CNAME"
+  value   = "${cloudflare_tunnel.london-b.id}.cfargotunnel.com"
+  proxied = true
+}
+
 resource "cloudflare_record" "www" {
   zone_id = cloudflare_zone.pez-sh.id
   name    = "www"

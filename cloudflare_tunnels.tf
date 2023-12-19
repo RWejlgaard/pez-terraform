@@ -167,6 +167,17 @@ resource "cloudflare_tunnel_config" "london-b" {
       }
     }
     ingress_rule {
+      hostname = "lidarr.pez.sh"
+      service = "http://localhost:8686"
+      origin_request {
+        access {
+          aud_tag = [ cloudflare_access_application.lidarr.aud ]
+          required = true
+          team_name = "pezsh" 
+        }
+      }
+    }
+    ingress_rule {
       hostname = "request.pez.sh"
       service = "http://localhost:5055"
     }

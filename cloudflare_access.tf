@@ -136,6 +136,18 @@ resource "cloudflare_access_application" "sonarr" {
   logo_url                   = "https://res.cloudinary.com/razordarkamg/image/upload/v1621212884/SonarrV3_pufacd.png"
 }
 
+resource "cloudflare_access_application" "lidarr" {
+  zone_id                    = cloudflare_zone.pez-sh.id
+  name                       = "Lidarr - Music"
+  domain                     = "lidarr.pez.sh"
+  type                       = "self_hosted"
+  session_duration           = "730h"
+  allowed_idps               = [ cloudflare_access_identity_provider.azure_ad.id ]
+  auto_redirect_to_identity  = false
+  app_launcher_visible       = true
+  http_only_cookie_attribute = true
+}
+
 resource "cloudflare_access_application" "app-launcher" {
   name                 = "App Launcher"
   type                 = "app_launcher"
